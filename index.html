@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>George Boolos — the logic of provability</title>
+<meta name="description" content="LOGIKĒ · the modern foundations — George Boolos (1940–1996). He showed that Gödel's incompleteness theorems become a clean MODAL LOGIC: read the box □ as 'it is provable that', and the laws of provability are captured by one system (GL), governed by Löb's theorem. Two self-referential sentences split the world: Gödel's 'I am not provable' is true but unprovable; Henkin's 'I am provable' is provable. Live: build each sentence and watch its fate. He also wrote Gödel's second theorem in words of one syllable and devised the Hardest Logic Puzzle Ever. Honest: provability logic is the serious work; the puzzle refines Smullyan. David Lee Wise, two-layer honest.">
+<style>
+  :root{--bg:#0c0f17;--panel:#121622;--panel2:#19202f;--edge:#2a3346;--ink:#ede6d6;--dim:#b3ad9a;--faint:#7c7660;
+    --ochre:#d9b66a;--ochre2:#f0d79a;--proof:#5ad1ff;--proof2:#a7e6ff;--one:#7fe0a0;--zero:#fb7185;--amber:#fbbf24;--ember:#fb923c;
+    --mono:'SFMono-Regular',ui-monospace,'Cascadia Code',Menlo,Consolas,monospace;--serif:'Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif;}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);line-height:1.58;background-image:radial-gradient(1100px 560px at 75% -10%,#1c2436 0%,transparent 55%),radial-gradient(900px 500px at 0% 100%,#14110a 0%,transparent 55%);}
+  .wrap{max-width:1000px;margin:0 auto;padding:44px 26px 90px}
+  header{border-bottom:1px solid var(--edge);padding-bottom:22px;margin-bottom:24px}
+  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--ochre);opacity:.95}
+  h1{font-family:Georgia,serif;font-size:38px;line-height:1.08;margin:.3em 0 .14em;font-weight:600}h1 em{color:var(--ochre2);font-style:italic}
+  .who{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.04em}
+  .sub{color:var(--dim);font-size:16px;max-width:74ch;margin-top:14px}.sub b{color:var(--ink)}
+  .verdicts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:22px 0}@media(max-width:720px){.verdicts{grid-template-columns:1fr}}
+  .vc{border:1px solid var(--edge);border-radius:11px;padding:13px 15px;border-top-width:3px;background:rgba(18,22,34,.6)}
+  .vc .badge{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.12em}
+  .vc.s{border-top-color:var(--one)}.vc.s .badge{color:var(--one)} .vc.m{border-top-color:var(--amber)}.vc.m .badge{color:var(--amber)} .vc.f{border-top-color:var(--ember)}.vc.f .badge{color:var(--ember)}
+  .vc p{font-size:12px;color:var(--dim);margin:6px 0 0;line-height:1.45}.vc p b{color:var(--ink)}
+  section{margin:36px 0}
+  h2{font-size:13px;font-family:var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--ochre2);border-left:2px solid var(--ochre);padding-left:11px;margin:0 0 6px}
+  .lede{color:var(--dim);font-size:15px;margin:0 0 18px;max-width:80ch}
+  .panel{background:linear-gradient(180deg,var(--panel),#0a0d14);border:1px solid var(--edge);border-radius:14px;padding:20px;box-shadow:0 24px 60px -40px #000}
+  .sent{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:620px){.sent{grid-template-columns:1fr}}
+  .sc{border:1px solid var(--edge);border-radius:11px;padding:14px 16px;background:rgba(0,0,0,.16);cursor:pointer;transition:.2s}
+  .sc:hover{border-color:var(--ochre)}.sc.on{border-color:var(--proof);box-shadow:0 0 0 1px var(--proof) inset}
+  .sc .nm{font-family:var(--mono);font-size:12px;color:var(--ochre2)}
+  .sc .fx{font-family:var(--mono);font-size:18px;color:var(--proof2);margin:8px 0}
+  .sc .say{font-size:13.5px;color:var(--dim);font-style:italic}
+  .out{font-family:Georgia,serif;font-size:15px;min-height:88px;margin-top:14px;color:var(--dim);border-left:2px solid var(--edge);padding-left:13px}
+  .out b.t{color:var(--one)}.out b.f{color:var(--zero)}.out b.p{color:var(--proof2)}
+  .note{color:var(--dim);font-size:13.5px;border-left:2px solid var(--edge);padding-left:13px;margin:16px 0 0}.note b{color:var(--ink)}
+  .thm{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}@media(max-width:620px){.thm{grid-template-columns:1fr}}
+  .tm{border:1px solid var(--edge);border-radius:10px;padding:13px 15px;background:rgba(0,0,0,.14)}.tm b{color:var(--ochre2);font-family:var(--mono);font-size:11px}.tm p{font-size:13px;color:var(--dim);margin:6px 0 0}
+  footer{margin-top:44px;border-top:1px solid var(--edge);padding-top:18px;color:var(--faint);font-family:var(--mono);font-size:11px;line-height:1.7}
+  footer a,.bar2 a{color:var(--ochre)}.bar2{font-family:var(--mono);font-size:11.5px;margin-bottom:16px}.bar2 a{text-decoration:none;border-bottom:1px dotted #4a4126}
+  code{font-family:var(--mono);color:var(--ochre2);background:#15120a;padding:1px 5px;border-radius:5px}
+  blockquote{margin:14px 0;padding:10px 16px;border-left:3px solid var(--ochre);color:var(--ink);font-style:italic;font-size:15px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="bar2"><a href="https://davidwise01.github.io/ud0/">◄ UD0</a> &nbsp; <a href="https://davidwise01.github.io/ludwig-wittgenstein/">← Wittgenstein</a> &nbsp; LOGIKĒ · the modern foundations</div>
+<header>
+  <div class="kicker">LOGIKĒ · the modern foundations · provability logic</div>
+  <h1>George <em>Boolos</em></h1>
+  <div class="who">1940 – 1996 · New York &amp; MIT · logician &amp; teacher · "The Logic of Provability"</div>
+  <div class="sub">[[kurt-godel]] proved his incompleteness theorems with a heavy machine — Gödel numbering, careful arithmetic about proofs. George Boolos showed that all of it snaps into a tiny, beautiful <b>modal logic</b>. Read the box <b>□</b> not as "necessarily" (that was [[saul-kripke]]'s reading) but as "<b>it is provable that</b>." Then the entire behaviour of provability in arithmetic is governed by one short modal system — <b>GL</b>, whose single distinctive law is <b>Löb's theorem</b>, <code>□(□p → p) → □p</code>. Incompleteness becomes a one-line modal fact: the system cannot prove its own consistency, <code>¬□⊥</code>. And the strange self-referential sentences at the heart of Gödel's proof become two clean fixed points with opposite fates. Boolos made the deepest theorem in logic <b>legible</b>.</div>
+</header>
+<div class="verdicts">
+  <div class="vc s"><span class="badge">✓ STRONG</span><p><b>Rigorous and clarifying.</b> Provability logic (the system GL) is a precise, complete modal account of provability in arithmetic; Boolos's "The Logic of Provability" is the standard text. It re-derives Gödel and Löb in a few clean modal lines.</p></div>
+  <div class="vc m"><span class="badge">◐ A REFRAMING, NOT A NEW THEOREM</span><p><b>Recasting, brilliantly.</b> The core results are Gödel's and Löb's; Boolos's gift was the modal <em>framework</em> that makes them transparent and connects them to [[saul-kripke]]'s semantics. Synthesis of the first order, not a fresh incompleteness.</p></div>
+  <div class="vc f"><span class="badge">◔ FAMOUS FOR PUZZLES TOO</span><p><b>The popular Boolos.</b> He wrote Gödel's second theorem "in words of one syllable," and devised "The Hardest Logic Puzzle Ever" (three gods: True, False, Random). Beloved feats of exposition — refinements of Smullyan, not his deepest math.</p></div>
+</div>
+
+<section>
+  <h2>I · Two sentences that talk about their own proofs</h2>
+  <p class="lede">Provability logic lives or dies on <b>self-reference</b>. By Gödel's fixed-point trick, a system can build a sentence that asserts something <em>about its own provability</em>. There are two natural ones — and they could not end more differently. Click each to follow its logic to the end. The box <b>□</b> means "this is provable in the system."</p>
+  <div class="panel">
+    <div class="sent">
+      <div class="sc on" id="cG"><div class="nm">GÖDEL'S SENTENCE</div><div class="fx">G ↔ ¬□G</div><div class="say">"I am NOT provable."</div></div>
+      <div class="sc" id="cH"><div class="nm">HENKIN / LÖB'S SENTENCE</div><div class="fx">H ↔ □H</div><div class="say">"I AM provable."</div></div>
+    </div>
+    <div class="out" id="out"></div>
+    <div class="note">The asymmetry is the whole of incompleteness, in two sentences. The one that says "<em>I can't be proved</em>" turns out <b>true but unprovable</b> ([[kurt-godel]]); the one that says "<em>I can be proved</em>" turns out <b>actually provable</b> — that's <b>Löb's theorem</b>, the surprising heart of GL. ⚑ And the consistency statement <code>¬□⊥</code> ("falsehood is not provable") is exactly a sentence the system <em>cannot</em> prove about itself — Gödel's <b>second</b> theorem, now a one-line modal fact. Boolos's framework turns a forest of arithmetic into a handful of modal axioms with [[saul-kripke]]-style worlds (here: provability-worlds, a transitive well-founded frame).</div>
+  </div>
+  <blockquote>"… we cannot prove that we cannot prove a contradiction — unless we can." <span style="color:var(--faint);font-style:normal;font-size:12px">— the shape of Gödel's second theorem, à la Boolos</span></blockquote>
+</section>
+
+<section>
+  <h2>II · GL, Löb, and the one-syllable proof</h2>
+  <div class="thm">
+    <div class="tm"><b>THE SYSTEM GL</b><p>Modal logic with □ = "provable," the transitivity axiom, and <em>Löb's axiom</em> □(□p→p)→□p. It is <b>sound and complete</b> for provability in Peano Arithmetic — every modal theorem corresponds to a real fact about proofs, and vice versa.</p></div>
+    <div class="tm"><b>THE HARDEST PUZZLE EVER</b><p>Three gods — True, False, and Random — answer yes/no in a word whose meaning ("da"/"ja") you don't know. Identify them in three questions. Boolos's celebrated hardening of a Smullyan puzzle, solved by self-referential questions.</p></div>
+  </div>
+  <p class="lede" style="margin-top:16px">Boolos's achievement is to make the <b>summit transparent</b>. Gödel's and Löb's theorems are notoriously slippery; recast as the modal system <b>GL</b> — provability as a box operator over a [[saul-kripke]] frame of "worlds you can prove your way to" — they become almost mechanical, and the connection between <em>incompleteness</em> (Gödel), <em>self-reference</em> (Löb), and <em>possible-worlds semantics</em> (Kripke) becomes one picture. The same man who wrote the standard graduate logic textbook and the definitive monograph on provability logic also delighted in proving the second incompleteness theorem in <b>words of one syllable</b> and inventing puzzles that are genuinely the hardest known — because he believed, rightly, that if you truly understand a deep thing you can make it <em>clear</em>. ⚑ He took the hardest theorem in this lineage and handed it back as a small, clean modal logic. [[ludwig-wittgenstein]] ← · the lineage rests here.</p>
+</section>
+
+<section>
+  <h2>III · The clarifier</h2>
+  <p class="note" style="border-color:var(--amber)"><b style="color:var(--amber)">Gate kept on.</b> The work is <b>rigorous and important</b>: provability logic — the modal system <b>GL</b>, with □ read as "provable in arithmetic," made sound and complete by the Solovay theorems — is a real and beautiful corner of mathematical logic, and Boolos's <em>The Logic of Provability</em> (1993) is its standard treatment; it re-derives [[kurt-godel]]'s incompleteness and Löb's theorem as clean modal facts and ties them to [[saul-kripke]]'s semantics. The honest framing is that this is a <b>profound reorganisation, not a new incompleteness theorem</b> — the deep results are Gödel's and Löb's (and the completeness is Solovay's); Boolos's genius was the unifying modal <em>view</em> and an unmatched gift for making it understandable. His popular feats — the <b>"Hardest Logic Puzzle Ever"</b> (a refinement of [[raymond-smullyan]]'s gods puzzles) and proving Gödel's second theorem in words of one syllable — are dazzling exposition rather than his deepest mathematics, and he'd have said so. The man: George Boolos was, by wide agreement, one of the great <em>teachers</em> of logic, co-author of the standard text <em>Computability and Logic</em>, a national crossword champion and Joyce scholar, who died of pancreatic cancer at 55, far too soon. He spent his life on the conviction that the hardest truths can be made clear — and proved it on the hardest one there is. ⚑ With Boolos the lineage rests: from [[thales-of-miletus]]' first proof to the modal logic of proof itself. [[ludwig-wittgenstein]] ←."</p>
+</section>
+
+<footer>
+  GEORGE BOOLOS · LOGIKĒ · the modern foundations · two-layer honest<br>
+  live self-reference (Gödel's G ↔ ¬□G is true-but-unprovable; Henkin/Löb's H ↔ □H is provable — the asymmetry that IS incompleteness; □ = "provable", verified both branches)<br>
+  provability logic / the modal system GL (□ = provable, Löb's axiom, sound &amp; complete for PA) · Gödel's second theorem as ¬□⊥ · the Hardest Logic Puzzle Ever · the great teacher of logic<br>
+  ← <a href="https://davidwise01.github.io/ludwig-wittgenstein/">Wittgenstein</a> · the LOGIKĒ lineage rests — <b>Thales → … → the logic of proof itself</b><br>
+  LOGIKĒ · the lineage of logical mathematics · governor David Lee Wise · CC-BY-ND-4.0
+</footer>
+</div>
+<script>
+"use strict";
+(function(){
+  const $=id=>document.getElementById(id);
+  const TXT={
+    G:'<div style="color:var(--proof2);font-family:var(--mono);font-size:13px;margin-bottom:8px">G ↔ ¬□G — "G is not provable."</div>'+
+      'Suppose the system <b class="p">proved</b> G. Then G would be provable — but G <em>says</em> it is not provable, so the system would have proved a falsehood, making it <b class="f">inconsistent</b>. So a consistent system can <b>not</b> prove G. '+
+      'But that is exactly what G claims! So G is <b class="t">true</b> — and <b class="t">unprovable</b>. Truth outruns proof. <span style="color:var(--faint)">(Gödel\'s first incompleteness theorem.)</span>',
+    H:'<div style="color:var(--proof2);font-family:var(--mono);font-size:13px;margin-bottom:8px">H ↔ □H — "H is provable."</div>'+
+      'You\'d expect the mirror image — H true-but-unprovable. <b>It isn\'t.</b> By <b class="p">Löb\'s theorem</b>, whenever a system can prove "if H is provable then H," it can already prove H outright. Here H <em>asserts</em> its own provability, which supplies exactly that — so the system <b class="t">proves H</b>, and H is <b class="t">true</b>. '+
+      'The sentence that boasts "I can be proved" makes itself come true. <span style="color:var(--faint)">(Löb\'s theorem — the surprise at the heart of GL.)</span>'
+  };
+  function show(k){ $('cG').classList.toggle('on',k==='G'); $('cH').classList.toggle('on',k==='H'); $('out').innerHTML=TXT[k]; }
+  $('cG').onclick=()=>show('G'); $('cH').onclick=()=>show('H');
+  show('G');
+})();
+</script>
+</body>
+</html>
